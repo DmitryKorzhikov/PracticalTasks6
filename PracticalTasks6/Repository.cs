@@ -47,8 +47,13 @@ namespace PracticalTasks6
         }
         public Worker GetWorkerById(int id)
         {
-                //Load();
-            return Workers[id];
+            //Load();
+            Worker w = new Worker();
+            if (this.index > id)
+            {
+                w = Workers[id];
+            }
+            return w;
 
         }
         private void Resize(bool Flag)
@@ -64,29 +69,34 @@ namespace PracticalTasks6
             if (!File.Exists(path))
             {
                 row = "ID#Дата и время добавления#ФИО#Возраст#Рост#Дата рождения#Место рождения";
+                using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
+                {
+                    sw.Write(row);
+                }
             }
 
-            using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
+            if (CurWorker.ID > 0)
             {
-                row += $"\n{CurWorker.ID}#";
-                row += $"{CurWorker.DateTime}#";
-                row += $"{CurWorker.sFIO}#";
-                row += $"{CurWorker.nAge}#";
-                row += $"{CurWorker.nHeight}#";
-                row += $"{CurWorker.dBirthDate}#";
-                row += $"{CurWorker.sPlaceBirth}#";
-                sw.Write(row);
+                using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
+                {
+                    row += $"\n{CurWorker.ID}#";
+                    row += $"{CurWorker.DateTime}#";
+                    row += $"{CurWorker.sFIO}#";
+                    row += $"{CurWorker.nAge}#";
+                    row += $"{CurWorker.nHeight}#";
+                    row += $"{CurWorker.dBirthDate}#";
+                    row += $"{CurWorker.sPlaceBirth}#";
+                    sw.Write(row);
+                }
             }
         }
         public void SaveToFile()
         {
             foreach (Worker w in Workers)
             {
-                if (w.ID > 0)
-                {
+                
                     AddFile(w);
-                }
-            }
+             }
         }
         public void AddWorker(Worker ConcreteWorker)
         {
