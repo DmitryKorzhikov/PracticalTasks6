@@ -9,7 +9,7 @@ namespace PracticalTasks6
 {
     public class Repository
     {
-        private Worker[] Workers;
+        public Worker[] Workers;
         private string path;
         int index;
         string[] titles;
@@ -45,13 +45,22 @@ namespace PracticalTasks6
                 return this.Workers;
              
         }
-        public Worker GetWorkerById(int id)
+        public Worker GetWorkerById(int id,ref int index)
         {
             //Load();
             Worker w = new Worker();
             if (this.index > id)
             {
-                w = Workers[id];
+                for (int i=0;i<Workers.Length;i++)
+                {
+                    if (Workers[i].ID == id)
+                    {
+                        w = Workers[i];
+                        index = i;
+                        return w;
+                        break;
+                    }
+                }
             }
             return w;
 
@@ -79,14 +88,17 @@ namespace PracticalTasks6
             {
                 using (StreamWriter sw = new StreamWriter(path, true, Encoding.Unicode))
                 {
-                    row += $"\n{CurWorker.ID}#";
-                    row += $"{CurWorker.DateTime}#";
-                    row += $"{CurWorker.sFIO}#";
-                    row += $"{CurWorker.nAge}#";
-                    row += $"{CurWorker.nHeight}#";
-                    row += $"{CurWorker.dBirthDate}#";
-                    row += $"{CurWorker.sPlaceBirth}#";
-                    sw.Write(row);
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.Append($"\n{CurWorker.ID}#");
+                    sb.Append($"{CurWorker.CreationDate}#");
+                    sb.Append($"{CurWorker.FIO}#");
+                    sb.Append($"{CurWorker.Age}#");
+                    sb.Append($"{CurWorker.Height}#");
+                    sb.Append($"{CurWorker.BirthDate}#");
+                    sb.Append($"{CurWorker.PlaceBirth}#");
+
+                    sw.Write(sb.ToString());
                 }
             }
         }
@@ -131,7 +143,8 @@ namespace PracticalTasks6
         {
             if (!String.IsNullOrEmpty(titles[0]))
             {
-                Console.WriteLine($"{titles[0],-3}{titles[1],-25}{titles[2],-15}{titles[3],-10}{titles[4],-5}{titles[5],-15}{titles[6],-15}");
+                Console.WriteLine($"{titles[0],-3}{titles[1],-25}{titles[2],-15}{titles[3],-10}" +
+                    $"{titles[4],-5}{titles[5],-15}{titles[6],-15}");
             }
         }
         public void PrintDBToConsole()
@@ -143,7 +156,7 @@ namespace PracticalTasks6
                 {
                     Console.WriteLine(Workers[i].Print());
                 }
-                SaveToFile();
+                //SaveToFile();
             } else
             {
                 Console.WriteLine("Не найдено ни одного сотрудника!");
@@ -158,7 +171,7 @@ namespace PracticalTasks6
             int i = 0;
             foreach(Worker w in Workers)
             {
-                if (w.dBirthDate >= dateFrom && w.dBirthDate <= dateTo)
+                if (w.BirthDate >= dateFrom && w.BirthDate <= dateTo)
                 {
                     reqWRK[i] = w;
                     i++;
