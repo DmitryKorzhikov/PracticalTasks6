@@ -1,6 +1,4 @@
-﻿using System;
 using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Text;
 
 namespace PracticalTasks6
