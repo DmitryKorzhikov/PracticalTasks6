@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -45,21 +45,19 @@ namespace PracticalTasks6
                 return this.Workers;
              
         }
-        public Worker GetWorkerById(int id,ref int index)
+        public Worker GetWorkerById(Repository rep, int id,ref int index)
         {
             //Load();
             Worker w = new Worker();
-            if (this.index > id)
+            for(int i = 0; i < rep.Workers.Length; index++)
             {
-                for (int i=0;i<Workers.Length;i++)
+                if (rep.Workers[i].ID == id)
                 {
-                    if (Workers[i].ID == id)
-                    {
-                        w = Workers[i];
-                        index = i;
-                        return w;
-                        break;
-                    }
+                    w = Workers[i];
+                    index = index;
+                            return w;
+                            break;
+                 
                 }
             }
             return w;
