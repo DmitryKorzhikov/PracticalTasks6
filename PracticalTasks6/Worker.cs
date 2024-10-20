@@ -20,8 +20,8 @@ namespace PracticalTasks6
             string res = String.Empty;
             if (this.ID != 0)
             {
-                res= ($"{this.ID,-3}{this.CreationDate,-25}{this.FIO,-15}{this.Age,-10}" +
-                    $"{this.Height,-5}{this.BirthDate,-15}{this.PlaceBirth,-15}");
+                res= ($"{this.ID,-3}{this.CreationDate.ToString("dd.MM.yyyy HH:mm"),-25}{this.FIO,-15}{this.Age,-10}" +
+                    $"{this.Height,-5}{this.BirthDate.ToString("dd.MM.yyyy"),-15}{this.PlaceBirth,-15}");
             }
             return res;
         }

@@ -35,7 +35,7 @@ namespace PracticalTasks6
                         AddWorker(new Worker(Convert.ToInt32(args[0]), Convert.ToDateTime(args[1]), args[2], Convert.ToInt32(args[3]), Convert.ToInt32(args[4]), Convert.ToDateTime(args[5]), args[6]));
                     }
                 }
-                DeleteFile();
+                //DeleteFile();
             }
         }
         public Worker[] GetAllWorkers()
@@ -104,6 +104,7 @@ namespace PracticalTasks6
         }
         public void SaveToFile()
         {
+            DeleteFile();
             foreach (Worker w in Workers)
             {
                 
@@ -127,7 +128,7 @@ namespace PracticalTasks6
         public void DeleteWorker(int id)
         {
             // считывается файл, находится нужный Worker
-            Load();
+            //Load();
             DeleteFile();
             for (int i = 0;i<index;i++)
             {
@@ -135,7 +136,12 @@ namespace PracticalTasks6
                 {
                     AddFile(Workers[i]);
                 }
+                else
+                {
+                    Workers[i].ID = 0;
+                }
             }
+            SaveToFile();
             
             
         }
