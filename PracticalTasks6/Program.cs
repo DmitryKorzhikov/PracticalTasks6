@@ -32,13 +32,13 @@ namespace PracticalTasks6
                     break;
             }
             int i = -1;
-            Worker w2 = r.GetWorkerById(w.ID,ref i);
+            Worker w2 = r.GetWorkerById(r, w.ID,ref i);
             r.Workers[i] = w;
         }
         public static Worker GetWorkerRep(Repository r, string ID)
         {
             int i = -1;
-            Worker w = r.GetWorkerById(Convert.ToInt32(ID),ref i);
+            Worker w = r.GetWorkerById(r, Convert.ToInt32(ID),ref i);
             return w;
             
         }
